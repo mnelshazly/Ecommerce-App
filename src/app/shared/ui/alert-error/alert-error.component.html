@@ -1,0 +1,39 @@
+@if(formName.get(controlName)?.errors && formName.get(controlName)?.touched) {
+    <div class="alert alert-danger">
+      <ul class="m-0">
+
+        @if(formName.get(controlName)?.getError('required')) {
+          <li>Input is required.</li>
+        }
+
+        @if(formName.get(controlName)?.getError('minlength')) {
+          <li>Input must be at least 3 characters long.</li>
+        }
+
+        @if(formName.get(controlName)?.getError('maxlength')) {
+          <li>Input must not exceed 20 characters.</li>
+        }
+
+        @if(formName.get(controlName)?.getError('email')) {
+            <li>Please enter a valid email address.</li>
+        }
+
+        @if(formName.get(controlName)?.getError('pattern') && controlName == "password") {
+            <li>Password must be at least 6 characters.</li>
+        }
+
+        @if(formName.get(controlName)?.getError('pattern') && controlName == "phone") {
+            <li>Please enter a valid Egyptian phone number.</li>
+        }
+
+      </ul>
+    </div>
+  } @else if (formName.getError('mismatch') && formName.get(controlName)?.touched && controlName == "rePassword") {
+    <div class="alert alert-danger">
+      <ul class="m-0">
+
+        <li>rePassword must match the Password.</li>
+
+      </ul>
+    </div>
+  }

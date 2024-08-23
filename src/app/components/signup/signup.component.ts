@@ -1,10 +1,13 @@
 import { Component } from '@angular/core';
 import { AbstractControl, FormControl, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
+import { confirmPassword } from '../../shared/utilities/confirm-password.utilities';
+import { signupValidators } from '../../shared/validators/register.validators';
+import { AlertErrorComponent } from "../../shared/ui/alert-error/alert-error.component";
 
 @Component({
   selector: 'app-signup',
   standalone: true,
-  imports: [ReactiveFormsModule],
+  imports: [ReactiveFormsModule, AlertErrorComponent],
   templateUrl: './signup.component.html',
   styleUrl: './signup.component.scss'
 })
@@ -12,29 +15,16 @@ export class SignupComponent {
 
   registerForm: FormGroup = new FormGroup({
 
-    name: new FormControl(null, [Validators.required, Validators.minLength(3), Validators.maxLength(20)]),
+    name: new FormControl(null, signupValidators.name),
 
-    email: new FormControl(null, [Validators.required, Validators.email]),
+    email: new FormControl(null, signupValidators.email),
 
-    password: new FormControl(null, [Validators.required, Validators.pattern(/^\w{6,}$/)]),
+    password: new FormControl(null, signupValidators.password),
 
     rePassword: new FormControl(null),
 
-    phone: new FormControl(null, [Validators.required, Validators.pattern(/^01[0125][0-9]{8}$/)]),
-  }, this.confirmPassword);
-
-  confirmPassword(g:AbstractControl) {
-
-    if(g.get('password')?.value === g.get('rePassword')?.value) {
-
-      return null;
-
-    } else {
-
-      return {mismatch:true}
-
-    }
-  }
+    phone: new FormControl(null, signupValidators.phone),
+  }, confirmPassword);
 
   sendData ():void {
     if (this.registerForm.valid) {
