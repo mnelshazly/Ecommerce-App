@@ -41,6 +41,9 @@ export class SigninComponent {
 
             // navigate to the home page
             setTimeout(()=>{
+
+              localStorage.setItem("userToken", res.token);
+
               this._Router.navigate(['/home']);
             }, 5000)
           }
