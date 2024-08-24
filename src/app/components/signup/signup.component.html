@@ -1,47 +1,84 @@
-<section class="p-2 my-2">
-  <div class="container">
+<div class="container">
 
-    <h1 class="h2">Register Now:</h1>
+  <h1 class="h2 text-main">Register Now:</h1>
 
-    <form [formGroup]="registerForm" (ngSubmit)="sendData()">
-      <div class="my-2">
-        <label for="name">name:</label>
-        <input formControlName="name" type="text" id="name" class="form-control">
-      </div>
+  <form [formGroup]="registerForm" (ngSubmit)="sendData()">
+    <div class="my-2">
+      <label for="name">name:</label>
+      <input [ngClass]="{
 
-      <alertError [formName]="registerForm" [controlName]="'name'" />
+        'is-valid': !registerForm.get('name')?.errors && (registerForm.get('name')?.touched || registerForm.get('name')?.dirty),
+        'is-invalid': registerForm.get('name')?.errors && (registerForm.get('name')?.touched || registerForm.get('name')?.dirty),
 
-      <div class="my-2">
-        <label for="email">email:</label>
-        <input formControlName="email" type="email" id="email" class="form-control">
-      </div>
+      }" formControlName="name" type="text" id="name" class="form-control">
+    </div>
 
-      <alertError [formName]="registerForm" [controlName]="'email'" />
+    <alertError [formName]="registerForm" [controlName]="'name'" />
 
-      <div class="my-2">
-        <label for="password">password:</label>
-        <input formControlName="password" type="password" id="password" class="form-control">
-      </div>
+    <div class="my-2">
+      <label for="email">email:</label>
+      <input [ngClass]="{
 
-      <alertError [formName]="registerForm" [controlName]="'password'" />
+        'is-valid': !registerForm.get('email')?.errors && (registerForm.get('email')?.touched || registerForm.get('email')?.dirty),
+        'is-invalid': registerForm.get('email')?.errors && (registerForm.get('email')?.touched || registerForm.get('email')?.dirty),
 
-      <div class="my-2">
-        <label for="rePassword">rePassword:</label>
-        <input formControlName="rePassword" type="password" id="rePassword" class="form-control">
-      </div>
+      }" formControlName="email" type="email" id="email" class="form-control">
+    </div>
 
-      <alertError [formName]="registerForm" [controlName]="'rePassword'" />
+    <alertError [formName]="registerForm" [controlName]="'email'" />
 
-      <div class="my-2">
-        <label for="phone">phone:</label>
-        <input formControlName="phone" type="tel" id="phone" class="form-control">
-      </div>
+    <div class="my-2">
+      <label for="password">password:</label>
+      <input [ngClass]="{
 
-      <alertError [formName]="registerForm" [controlName]="'phone'" />
+        'is-valid': !registerForm.get('password')?.errors && (registerForm.get('password')?.touched || registerForm.get('password')?.dirty),
+        'is-invalid': registerForm.get('password')?.errors && (registerForm.get('password')?.touched || registerForm.get('password')?.dirty),
 
-      <button type="submit" class="btn bg-main text-white d-block ms-auto" [disabled]="registerForm.invalid">Submit</button>
+      }" formControlName="password" type="password" id="password" class="form-control">
+    </div>
 
-    </form>
-  </div>
+    <alertError [formName]="registerForm" [controlName]="'password'" />
 
-</section>
+    <div class="my-2">
+      <label for="rePassword">rePassword:</label>
+      <input [ngClass]="{
+
+        'is-valid': !registerForm.getError('mismatch') && (registerForm.get('rePassword')?.touched || registerForm.get('rePassword')?.dirty),
+        'is-invalid': registerForm.getError('mismatch') && (registerForm.get('rePassword')?.touched || registerForm.get('rePassword')?.dirty),
+
+      }" formControlName="rePassword" type="password" id="rePassword" class="form-control">
+    </div>
+
+    <alertError [formName]="registerForm" [controlName]="'rePassword'" />
+
+    <div class="my-2">
+      <label for="phone">phone:</label>
+      <input [ngClass]="{
+
+        'is-valid': !registerForm.get('phone')?.errors && (registerForm.get('phone')?.touched || registerForm.get('phone')?.dirty),
+        'is-invalid': registerForm.get('phone')?.errors && (registerForm.get('phone')?.touched || registerForm.get('phone')?.dirty),
+
+      }" formControlName="phone" type="tel" id="phone" class="form-control">
+    </div>
+
+    <alertError [formName]="registerForm" [controlName]="'phone'" />
+
+    <!-- Display error message when user is already exist in database -->
+    @if (errorMsg) {<p class="text-danger fw-bold">{{errorMsg}}</p>}
+
+    <!-- Display success message when account is created -->
+    @if (successMsg) {<p class="alert alert-success">{{successMsg}}</p>}
+
+    <button type="submit" class="btn bg-main text-white d-block ms-auto" [disabled]="registerForm.invalid || isBtnSubmit">
+      
+      Submit
+
+      <!-- show spinner after submitting the form -->
+      @if(isBtnSubmit) {
+        <i class="fa-solid fa-spinner fa-spin"></i>
+      }
+
+    </button>
+
+  </form>
+</div>
