@@ -37,15 +37,12 @@ export class SigninComponent {
           if (res.message == 'success') {
             this.isBtnSubmit = false;
             this.errorMsg = "";
-            this.successMsg = "Login is successful, you will be redirected to the login page in 5 seconds";
+            // this.successMsg = "Login is successful, you will be redirected to the home page in 5 seconds";
 
-            // navigate to the home page
-            setTimeout(()=>{
+            localStorage.setItem("userToken", res.token);
+            this._AuthService.saveUserData();
 
-              localStorage.setItem("userToken", res.token);
-
-              this._Router.navigate(['/home']);
-            }, 5000)
+            this._Router.navigate(['/home']);
           }
         },
 

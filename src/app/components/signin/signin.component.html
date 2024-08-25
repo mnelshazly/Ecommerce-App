@@ -21,7 +21,7 @@
             @if (errorMsg) {<p class="text-danger fw-bold">{{errorMsg}}</p>}
 
             <!-- Display success message when login is successfull -->
-            @if (successMsg) {<p class="alert alert-success">{{successMsg}}</p>}
+            <!-- @if (successMsg) {<p class="alert alert-success">{{successMsg}}</p>} -->
 
             <button class="btn bg-main text-white d-block ms-auto" [disabled]="loginForm.invalid || isBtnSubmit">
                 Login

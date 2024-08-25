@@ -10,15 +10,17 @@ import { BrandsComponent } from './components/brands/brands.component';
 import { ProductsComponent } from './components/products/products.component';
 import { CartComponent } from './components/cart/cart.component';
 import { OrdersComponent } from './components/orders/orders.component';
+import { authGuard } from './core/guards/auth.guard';
+import { isLoggedInGuard } from './core/guards/is-logged-in.guard';
 
 export const routes: Routes = [
-    {path: "", component: AuthLayoutComponent, children: [
+    {path: "", component: AuthLayoutComponent, canActivate:[isLoggedInGuard],children: [
         {path: "", redirectTo: "signin", pathMatch: "full"},
         {path: "signup", component: SignupComponent, title: "Sign Up"},
         {path: "signin", component: SigninComponent, title: "Sign In"},
     ]},
 
-    {path: "", component: MainLayoutComponent, children: [
+    {path: "", component: MainLayoutComponent, canActivate:[authGuard], children: [
         {path: "", redirectTo: "home", pathMatch: "full"},
         {path: "home", component: HomeComponent, title: "Home"},
         {path: "categories", component: CategoriesComponent, title: "Categories"},
