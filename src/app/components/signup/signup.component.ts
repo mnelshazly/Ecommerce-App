@@ -1,5 +1,5 @@
 import { AuthService } from './../../core/services/auth.service';
-import { Component, inject } from '@angular/core';
+import { Component, inject, OnDestroy } from '@angular/core';
 import { AbstractControl, FormControl, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
 import { confirmPassword } from '../../shared/utilities/confirm-password.utilities';
 import { signupValidators } from '../../shared/validators/register.validators';
@@ -7,6 +7,7 @@ import { AlertErrorComponent } from "../../shared/ui/alert-error/alert-error.com
 import { NgClass } from '@angular/common';
 import { HttpErrorResponse } from '@angular/common/http';
 import { Router } from '@angular/router';
+import { Subscription } from 'rxjs';
 
 @Component({
   selector: 'app-signup',
@@ -15,11 +16,12 @@ import { Router } from '@angular/router';
   templateUrl: './signup.component.html',
   styleUrl: './signup.component.scss'
 })
-export class SignupComponent {
+export class SignupComponent implements OnDestroy {
 
   isBtnSubmit: boolean = false;
   errorMsg: string = "";
   successMsg: string = "";
+  registerSub!:Subscription;
 
   private readonly _AuthService = inject(AuthService);
   private readonly _Router = inject(Router)
@@ -35,10 +37,9 @@ export class SignupComponent {
   sendData ():void {
     if (this.registerForm.valid) {
       this.isBtnSubmit = true;
-      this._AuthService.signup(this.registerForm.value).subscribe({
+      this.registerSub = this._AuthService.signup(this.registerForm.value).subscribe({
        
         next:(res) => {
-
 
           if(res.message == 'success') {
             
@@ -55,8 +56,6 @@ export class SignupComponent {
 
           }
 
-
-
           console.log(res);
         },
 
@@ -71,5 +70,9 @@ export class SignupComponent {
 
       console.log(this.registerForm)
     }
+  }
+
+  ngOnDestroy(): void {
+    this.registerSub?.unsubscribe();
   }
 }

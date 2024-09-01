@@ -12,12 +12,15 @@ import { CartComponent } from './components/cart/cart.component';
 import { OrdersComponent } from './components/orders/orders.component';
 import { authGuard } from './core/guards/auth.guard';
 import { isLoggedInGuard } from './core/guards/is-logged-in.guard';
+import { ProductDetailsComponent } from './components/product-details/product-details.component';
+import { ForgotPasswordComponent } from './components/forgot-password/forgot-password.component';
 
 export const routes: Routes = [
     {path: "", component: AuthLayoutComponent, canActivate:[isLoggedInGuard],children: [
         {path: "", redirectTo: "signin", pathMatch: "full"},
         {path: "signup", component: SignupComponent, title: "Sign Up"},
         {path: "signin", component: SigninComponent, title: "Sign In"},
+        {path: "forgot-password", component: ForgotPasswordComponent, title: "Forgot Password"},
     ]},
 
     {path: "", component: MainLayoutComponent, canActivate:[authGuard], children: [
@@ -28,6 +31,7 @@ export const routes: Routes = [
         {path: "products", component: ProductsComponent, title: "Products"},
         {path: "cart", component: CartComponent, title: "Cart"},
         {path: "orders", component: OrdersComponent, title: "Orders"},
+        {path: "details/:id", component: ProductDetailsComponent, title: "Product Details"},
     ]},
 
     {path: "**", component: NotFoundComponent, title: "Not Found"}

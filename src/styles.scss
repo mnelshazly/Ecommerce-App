@@ -1,5 +1,7 @@
 /* You can add global styles to this file, and also import other style files */
 @import url('https://fonts.googleapis.com/css2?family=Encode+Sans+Expanded:wght@300&display=swap');
+@import 'ngx-owl-carousel-o/lib/styles/scss/owl.carousel';
+@import 'ngx-owl-carousel-o/lib/styles/scss/owl.theme.default';
 
 :root {
     --main-color:#0aad0a;
@@ -26,6 +28,16 @@ a , a:hover {
     text-decoration: none;
 }
 
+.product {
+    border: solid 1px var(--light-color);
+    border-radius: 10px;
+    -webkit-border-radius: 10px;
+    -moz-border-radius: 10px;
+    -ms-border-radius: 10px;
+    -o-border-radius: 10px;
+    overflow: hidden;
+}
+
 .product:hover {
     box-shadow: var(--shadow);
     border: solid 1px var(--main-color);
@@ -34,12 +46,17 @@ a , a:hover {
     -moz-border-radius: 10px;
     -ms-border-radius: 10px;
     -o-border-radius: 10px;
+
 }
 
 .product .btn {
     transition: transform 1s , opacity 1s;
     transform: translateY(100%);
     opacity: 0;
+    -webkit-transition: transform 1s , opacity 1s;
+    -moz-transition: transform 1s , opacity 1s;
+    -ms-transition: transform 1s , opacity 1s;
+    -o-transition: transform 1s , opacity 1s;
 }
 
 .product:hover .btn {

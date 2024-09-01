@@ -3,13 +3,13 @@ import { FormBuilder, FormGroup, ReactiveFormsModule } from '@angular/forms';
 import { signupValidators } from '../../shared/validators/register.validators';
 import { AlertErrorComponent } from '../../shared/ui/alert-error/alert-error.component';
 import { AuthService } from '../../core/services/auth.service';
-import { Router } from '@angular/router';
+import { Router, RouterLink } from '@angular/router';
 import { HttpErrorResponse } from '@angular/common/http';
 
 @Component({
   selector: 'app-signin',
   standalone: true,
-  imports: [ReactiveFormsModule, AlertErrorComponent],
+  imports: [ReactiveFormsModule, AlertErrorComponent, RouterLink],
   templateUrl: './signin.component.html',
   styleUrl: './signin.component.scss'
 })

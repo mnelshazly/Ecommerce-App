@@ -23,7 +23,10 @@
             <!-- Display success message when login is successfull -->
             <!-- @if (successMsg) {<p class="alert alert-success">{{successMsg}}</p>} -->
 
-            <button class="btn bg-main text-white d-block ms-auto" [disabled]="loginForm.invalid || isBtnSubmit">
+            <div class="d-flex align-items-center justify-content-end gap-4">
+                <a class="link-primary cursor-pointer" routerLink="/forgot-password">Forgot Password?</a>
+
+            <button class="btn bg-main text-white" [disabled]="loginForm.invalid || isBtnSubmit">
                 Login
 
                 <!-- show spinner after submitting the form -->
@@ -32,6 +35,7 @@
                 }
 
             </button>
+            </div>
 
         </form>
     </div>
