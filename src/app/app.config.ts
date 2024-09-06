@@ -4,6 +4,7 @@ import { provideRouter, withHashLocation, withInMemoryScrolling, withViewTransit
 import { routes } from './app.routes';
 import { provideHttpClient, withFetch } from '@angular/common/http';
 import { provideAnimations } from '@angular/platform-browser/animations';
+import { provideToastr } from 'ngx-toastr';
 
 
 export const appConfig: ApplicationConfig = {
@@ -11,5 +12,6 @@ export const appConfig: ApplicationConfig = {
     provideRouter(routes, withViewTransitions(), withInMemoryScrolling({scrollPositionRestoration: 'top'}), withHashLocation()),
     provideHttpClient(withFetch()),
     provideAnimations(),
+    provideToastr(),
   ]
 };

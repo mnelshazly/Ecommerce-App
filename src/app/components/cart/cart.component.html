@@ -1,1 +1,31 @@
-<p>cart works!</p>
+<section class="p-4 bg-main-light rounded-4">
+  <div class="d-flex justify-content-between align-items-center">
+    <h1 class="h2">Shop Cart:</h1>
+    <button class="btn btn-sm btn-danger" (click)="clearItems()">Clear Cart</button>
+  </div>
+  <p class="text-main">Total Cart Price: {{cartData.totalCartPrice | currency : "GBP"}}</p>
+
+  @for (product of cartData.products; track product.product.id) {
+
+    <div class="row my-2 border-bottom py-2">
+      <div class="col-md-1">
+        <img [src]="product.product.imageCover" [alt]="product.product.title" class="w-100">
+      </div>
+      <div class="col-md-11 d-flex align-items-center justify-content-between">
+        <div>
+          <h3 class="h5">{{product.product.title}}</h3>
+          <p class="text-main mb-2">Price: {{product.price | currency : "GBP"}}</p>
+          <span class="text-danger cursor-pointer" (click)="removeItem(product.product.id)"><i class="fa-solid fa-trash"></i> Remove</span>
+        </div>
+        <div class="d-flex align-items-center gap-2">
+          <span class="text-main cursor-pointer" (click)="updateCount(product.product.id, product.count + 1)"><i class="fa-solid fa-circle-plus fa-2xl"></i></span>
+          <span>{{product.count}}</span>
+          <span class="text-main cursor-pointer" (click)="updateCount(product.product.id, product.count - 1)"><i class="fa-solid fa-circle-minus fa-2xl"></i></span>
+        </div>
+      </div>
+    </div>
+
+  }
+
+  <button routerLink="/orders" class="btn bg-main text-white mt-2">Order</button>
+</section>

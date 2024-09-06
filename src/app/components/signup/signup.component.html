@@ -1,6 +1,6 @@
-<div class="container">
+<div class="container w-75 mx-auto bg-main-light p-4 rounded-4">
 
-  <h1 class="h2 text-main">Register Now:</h1>
+  <h1 class="h2 text-main text-center">Register Now</h1>
 
   <form [formGroup]="registerForm" (ngSubmit)="sendData()">
     <div class="my-2">
@@ -70,7 +70,7 @@
     @if (successMsg) {<p class="alert alert-success">{{successMsg}}</p>}
 
     <button type="submit" class="btn bg-main text-white d-block ms-auto" [disabled]="registerForm.invalid || isBtnSubmit">
-      
+
       Register
 
       <!-- show spinner after submitting the form -->

@@ -2,10 +2,11 @@
 
 <app-category-slider></app-category-slider>
 
+<h3 class="my-3">Popular Products</h3>
 <div class="row mt-3 gy-3">
-    
+
     @for (product of allProducts; track $index) {
-        <div class="col-md-2">
+        <div class="col-md-3">
             <div class="product cursor-pointer text-center p-2">
                 <div [routerLink]="['/details', product._id]">
                     <img [src]="product.imageCover" [alt]="product.slug" class="w-100">
@@ -18,19 +19,19 @@
                             @for (num of [1,2,3,4,5].slice(0, product.ratingsAverage); track $index) {
                                 <i class="fa-solid fa-star rating-color"></i>
                             }
-    
+
                             <!-- Display half a star if the rating has a fraction -->
                             @if (product.ratingsAverage % 1 != 0) {
                                 <i class="fa-solid fa-star-half-stroke rating-color"></i>
                             }
-                            
+
                              {{product.ratingsAverage}}
                         </span>
                     </div>
                 </div>
-                <button class="btn bg-main text-white w-100">Add To Cart</button>
+                <button class="btn bg-main text-white w-100" (click)="addToCart(product.id)">Add To Cart</button>
             </div>
-        </div>        
-    }  
+        </div>
+    }
 
 </div>
