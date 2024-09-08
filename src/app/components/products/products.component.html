@@ -1,4 +1,4 @@
-<h1 class="mb-5">All Products</h1>
+<h1 class="mb-5 h3">{{pageTitle}}</h1>
 <!-- <div class="row gy-3">
     
     @for (product of allProducts; track $index) {
@@ -25,13 +25,13 @@
         <div class="col-md-2">
             <div class="product cursor-pointer text-center p-2 position-relative">
                 <div class="position-absolute wishlist">
-                    @if(added) {
-                    <i class="fa-solid fa-heart shadow"></i>
 
+                    @if(wishlistData.includes(product.id)) {
+                        <i (click)="removeProductFromWishlist(product.id)" class="fa-solid fa-heart shadow"></i>
                     } @else {
-
                         <i (click)="addToWishlist(product.id)" class="fa-regular fa-heart shadow"></i>
                     }
+
                 </div>
                 <div [routerLink]="['/details', product._id]">
                     <div>

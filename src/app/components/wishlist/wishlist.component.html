@@ -31,30 +31,19 @@
                         </div>
                     </div>
                     <div class="d-flex justify-content-between">
-                      <button [disabled]="isAddBtnSubmit" (click)="addToCart(product._id)" class="btn bg-main text-white" >
+                      <button  (click)="addToCart(product._id)" class="btn bg-main text-white" >
 
-                        @if (isAddBtnSubmit) {
-                          <i class="fa-solid fa-spinner fa-spin"></i>
-                      } @else {
                         <i class="fa-solid fa-square-plus"></i>
                         Add To Cart
-                      }
 
                       </button>
-                      <button [disabled]="isRemoveBtnSubmit" (click)="removeProductFromWishlist(product._id)" class="btn bg-danger text-white" >
+                      <button (click)="removeProductFromWishlist(product._id)" class="btn bg-danger text-white" >
 
-                        @if (isRemoveBtnSubmit) {
-                          <i class="fa-solid fa-spinner fa-spin"></i>
-                      } @else {
                         <i class="fa-solid fa-trash-can"></i>
                         Remove
-                      }
-
 
                       </button>
                     </div>
-    
-                    
                 </div>
             </div>
         }

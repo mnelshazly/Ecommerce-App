@@ -1,4 +1,4 @@
-import { Component, inject, OnInit } from '@angular/core';
+import { Component, inject, Input, input, OnInit } from '@angular/core';
 import { ProductsService } from '../../core/services/products.service';
 import { Product } from '../../core/interfaces/product';
 import { ToastrService } from 'ngx-toastr';
@@ -16,32 +16,15 @@ import { WishlistService } from '../../core/services/wishlist.service';
 })
 export class ProductsComponent implements OnInit{
 
-  // allProducts:Product[] = []
-
-  // constructor (private _ProductsService:ProductsService) {}
-
-  // getProducts = () => {
-  //   this._ProductsService.getProducts().subscribe({
-  //     next: (res) => {
-  //       this.allProducts = res.data;
-  //     },
-  //     error: (error) => {
-  //       console.log(error);
-  //     }
-  //   })
-  // }
-
-  // ngOnInit(): void {
-  //   this.getProducts();
-  // }
-
   private readonly _ProductsService = inject(ProductsService)
   private readonly _CartService = inject(CartService)
   private readonly _ToastrService = inject(ToastrService)
   private readonly _WishlistService = inject(WishlistService)
 
-  allProducts:Product[] = [];
+  @Input() pageTitle:string = 'All Products';
 
+  allProducts:Product[] = [];
+  wishlistData:any[] = []
   getProductsSub!: Subscription;
 
   getProducts = () => {
@@ -57,6 +40,12 @@ export class ProductsComponent implements OnInit{
 
   ngOnInit(): void {
     this.getProducts();
+
+    this._WishlistService.getWishlistData().subscribe({
+      next: (res) => {
+        this.wishlistData = res.data.map((item: any) => item._id);
+      }
+    })
   }
 
   ngOnDestroy(): void {
@@ -80,8 +69,6 @@ export class ProductsComponent implements OnInit{
     })
   }
 
-  added:boolean = false
-
   addToWishlist = (id:string):void => {
     this._WishlistService.addProductToWishlist(id).subscribe({
       next: (res) => {
@@ -89,8 +76,25 @@ export class ProductsComponent implements OnInit{
           progressBar: true,
           timeOut: 3000
         })
-        console.log(res)
-        this.added = true
+        this._WishlistService.WishlistNumber.next(res.data.length);
+        console.log(res.data)
+        this.wishlistData = res.data;
+      },
+      error: (err) => {
+        console.log(err)
+      }
+    })
+  }
+
+  removeProductFromWishlist = (id:string) => {
+    this._WishlistService.removeProductFromWishlist(id).subscribe({
+      next: (res) => {
+        this._ToastrService.success(res.message, '', {
+          progressBar: true,
+          timeOut: 3000
+        })
+        this._WishlistService.WishlistNumber.next(res.data.length)
+        this.wishlistData = res.data;
       },
       error: (err) => {
         console.log(err)

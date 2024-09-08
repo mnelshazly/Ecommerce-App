@@ -7,7 +7,11 @@
             <div class="product cursor-pointer text-center p-2 position-relative">
                 <div class="position-absolute wishlist">
 
-                    <i (click)="addToWishlist(product.id)" class="fa-regular fa-heart shadow"></i>
+                    @if(wishlistData.includes(product.id)) {
+                        <i (click)="removeProductFromWishlist(product.id)" class="fa-solid fa-heart shadow"></i>
+                    } @else {
+                        <i (click)="addToWishlist(product.id)" class="fa-regular fa-heart shadow"></i>
+                    }
 
                 </div>
                 <div [routerLink]="['/details', product._id]">

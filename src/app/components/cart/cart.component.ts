@@ -24,7 +24,8 @@ export class CartComponent implements OnInit{
     this._CartService.getCartDetails().subscribe({
       next: (res) => {
         console.log(res)
-        this.numberOfCartItems = res.numOfCartItems;
+        // this.numberOfCartItems = res.numOfCartItems;
+        this.numberOfCartItems = this._CartService.cartNumber.getValue()
         console.log(this.numberOfCartItems)
         this.cartData = res.data;
         console.log(this.cartData)
@@ -82,6 +83,7 @@ export class CartComponent implements OnInit{
           })
           this.cartData = {} as Cart;
           this._CartService.cartNumber.next(0)
+          this.numberOfCartItems = this._CartService.cartNumber.getValue()
         }
       },
       error: (err) => {

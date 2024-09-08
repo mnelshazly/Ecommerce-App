@@ -8,78 +8,105 @@ import { RouterLink } from '@angular/router';
 import { CartService } from '../../core/services/cart.service';
 import { ToastrService } from 'ngx-toastr';
 import { WishlistService } from '../../core/services/wishlist.service';
+import { ProductsComponent } from '../products/products.component';
 
 
 @Component({
   selector: 'app-home',
   standalone: true,
-  imports: [CategorySliderComponent, MainSliderComponent, RouterLink],
+  imports: [ProductsComponent ,CategorySliderComponent, MainSliderComponent, RouterLink],
   templateUrl: './home.component.html',
   styleUrl: './home.component.scss'
 })
-export class HomeComponent implements OnInit, OnDestroy{
+export class HomeComponent {
 
   private readonly _ProductsService = inject(ProductsService)
   private readonly _CartService = inject(CartService)
   private readonly _ToastrService = inject(ToastrService)
   private readonly _WishlistService = inject(WishlistService)
 
-  allProducts:Product[] = [];
+  productsTitle:string = 'Popular Products';
 
-  getProductsSub!: Subscription;
+  // allProducts:Product[] = [];
 
-  getProducts = () => {
-    this.getProductsSub = this._ProductsService.getProducts().subscribe({
-      next:(res) => {
-        this.allProducts = res.data;
-      },
-      error:(error) => {
-        console.log(error)
-      },
-    });
-  };
+  // wishlistData:any[] = []
 
-  ngOnInit(): void {
-    this.getProducts();
-  }
+  // getProductsSub!: Subscription;
 
-  ngOnDestroy(): void {
-    this.getProductsSub?.unsubscribe();
-  }
+  // getProducts = () => {
+  //   this.getProductsSub = this._ProductsService.getProducts().subscribe({
+  //     next:(res) => {
+  //       this.allProducts = res.data;
+  //     },
+  //     error:(error) => {
+  //       console.log(error)
+  //     },
+  //   });
+  // };
 
-  addToCart = (id:string):void => {
-    this._CartService.addProductToCart(id).subscribe({
-      next: (res) => {
-        this._ToastrService.success(res.message, '', {
-          progressBar: true,
-          timeOut: 3000
-        })
-        this._CartService.cartNumber.next(res.numOfCartItems);
-        console.log( this._CartService.cartNumber)
-        console.log(res)
-      },
-      error: (err) => {
-        console.log(err)
-      }
-    })
-  }
+  // ngOnInit(): void {
+  //   this.getProducts();
 
-  added:boolean = false
+  //   this._WishlistService.getWishlistData().subscribe({
+  //     next: (res) => {
+  //       this.wishlistData = res.data.map((item: any) => item._id);
+  //     }
+  //   })
 
-  addToWishlist = (id:string):void => {
-    this._WishlistService.addProductToWishlist(id).subscribe({
-      next: (res) => {
-        this._ToastrService.success(res.message, '', {
-          progressBar: true,
-          timeOut: 3000
-        })
-        console.log(res)
-        this.added = true
-      },
-      error: (err) => {
-        console.log(err)
-      }
-    })
-  }
+  // }
+
+  // ngOnDestroy(): void {
+  //   this.getProductsSub?.unsubscribe();
+  // }
+
+  // addToCart = (id:string):void => {
+  //   this._CartService.addProductToCart(id).subscribe({
+  //     next: (res) => {
+  //       this._ToastrService.success(res.message, '', {
+  //         progressBar: true,
+  //         timeOut: 3000
+  //       })
+  //       this._CartService.cartNumber.next(res.numOfCartItems);
+  //       console.log( this._CartService.cartNumber)
+  //       console.log(res)
+  //     },
+  //     error: (err) => {
+  //       console.log(err)
+  //     }
+  //   })
+  // }
+
+  // addToWishlist = (id:string):void => {
+  //   this._WishlistService.addProductToWishlist(id).subscribe({
+  //     next: (res) => {
+  //       this._ToastrService.success(res.message, '', {
+  //         progressBar: true,
+  //         timeOut: 3000
+  //       })
+  //       this._WishlistService.WishlistNumber.next(res.data.length);
+  //       console.log(res.data)
+  //       this.wishlistData = res.data;
+  //     },
+  //     error: (err) => {
+  //       console.log(err)
+  //     }
+  //   })
+  // }
+
+  // removeProductFromWishlist = (id:string) => {
+  //   this._WishlistService.removeProductFromWishlist(id).subscribe({
+  //     next: (res) => {
+  //       this._ToastrService.success(res.message, '', {
+  //         progressBar: true,
+  //         timeOut: 3000
+  //       })
+  //       this._WishlistService.WishlistNumber.next(res.data.length)
+  //       this.wishlistData = res.data;
+  //     },
+  //     error: (err) => {
+  //       console.log(err)
+  //     }
+  //   })
+  // }
 
 }

@@ -48,6 +48,8 @@ export class ProductDetailsComponent implements OnInit{
           progressBar: true,
           timeOut: 3000
         })
+        this._CartService.cartNumber.next(res.numOfCartItems);
+        console.log( this._CartService.cartNumber)
         console.log(res)
       },
       error: (err) => {

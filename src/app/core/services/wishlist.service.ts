@@ -1,6 +1,7 @@
+import { Wishlist } from './../interfaces/wishlist';
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { Observable } from 'rxjs';
+import { BehaviorSubject, Observable } from 'rxjs';
 import { baseURL } from '../../environment/environment.local';
 
 
@@ -10,6 +11,8 @@ import { baseURL } from '../../environment/environment.local';
 export class WishlistService {
 
   constructor(private _HttpClient:HttpClient) { }
+
+  WishlistNumber: BehaviorSubject<number> = new BehaviorSubject(0);
 
   addProductToWishlist = (productId:string):Observable<any> => {
     return this._HttpClient.post(baseURL + 'api/v1/wishlist', 

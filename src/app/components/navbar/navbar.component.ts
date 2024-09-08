@@ -2,6 +2,7 @@ import { Component, inject, OnInit } from '@angular/core';
 import { RouterLink, RouterLinkActive } from '@angular/router';
 import { AuthService } from '../../core/services/auth.service';
 import { CartService } from '../../core/services/cart.service';
+import { WishlistService } from '../../core/services/wishlist.service';
 
 @Component({
   selector: 'app-navbar',
@@ -13,8 +14,10 @@ import { CartService } from '../../core/services/cart.service';
 export class NavbarComponent implements OnInit{
   readonly _AuthService = inject(AuthService)
   private readonly _CartService = inject(CartService)
+  private readonly _WishlistService = inject(WishlistService)
 
   countNumber:number = 0;
+  itemsInWishlist:number = 0
 
   ngOnInit(): void {
 
@@ -29,6 +32,19 @@ export class NavbarComponent implements OnInit{
       this.countNumber = data;
     }
    })
+
+   this._WishlistService.getWishlistData().subscribe({
+    next: (res) => {
+      this._WishlistService.WishlistNumber.next(res.count)
+    }
+   })
+
+   this._WishlistService.WishlistNumber.subscribe({
+    next: (data) => {
+      this.itemsInWishlist = data;
+    }
+   })
+
   }
 
 }

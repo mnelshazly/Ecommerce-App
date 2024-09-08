@@ -24,6 +24,7 @@ export class ProductsByCatComponent implements OnInit{
   private readonly _ToastrService = inject(ToastrService);
 
   productsList:Product[] = []
+  wishlistData:any[] = []
 
   ngOnInit(): void {
     this._ActivatedRoute.paramMap.subscribe({
@@ -42,6 +43,13 @@ export class ProductsByCatComponent implements OnInit{
 
       }
     })
+
+    this._WishlistService.getWishlistData().subscribe({
+      next: (res) => {
+        this.wishlistData = res.data.map((item: any) => item._id);
+      }
+    })
+
   }
 
   addToWishlist = (id:string):void => {
@@ -51,7 +59,25 @@ export class ProductsByCatComponent implements OnInit{
           progressBar: true,
           timeOut: 3000
         })
-        console.log(res)
+        this._WishlistService.WishlistNumber.next(res.data.length);
+        console.log(res.data)
+        this.wishlistData = res.data;
+      },
+      error: (err) => {
+        console.log(err)
+      }
+    })
+  }
+
+  removeProductFromWishlist = (id:string) => {
+    this._WishlistService.removeProductFromWishlist(id).subscribe({
+      next: (res) => {
+        this._ToastrService.success(res.message, '', {
+          progressBar: true,
+          timeOut: 3000
+        })
+        this._WishlistService.WishlistNumber.next(res.data.length)
+        this.wishlistData = res.data;
       },
       error: (err) => {
         console.log(err)
