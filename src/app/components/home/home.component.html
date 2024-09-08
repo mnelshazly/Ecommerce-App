@@ -6,10 +6,22 @@
 <div class="row mt-3 gy-3">
 
     @for (product of allProducts; track $index) {
-        <div class="col-md-3">
-            <div class="product cursor-pointer text-center p-2">
+        <div class="col-md-2">
+            <div class="product cursor-pointer text-center p-2 position-relative">
+                <div class="position-absolute wishlist">
+                    @if(added) {
+                    <i class="fa-solid fa-heart shadow"></i>
+
+                    } @else {
+
+                        <i (click)="addToWishlist(product.id)" class="fa-regular fa-heart shadow"></i>
+                    }
+                </div>
                 <div [routerLink]="['/details', product._id]">
-                    <img [src]="product.imageCover" [alt]="product.slug" class="w-100">
+                    <div>
+                        <img [src]="product.imageCover" [alt]="product.slug" class="w-100">
+                        <!-- <span class="position-absolute wishlist"><i class="fa-regular fa-heart shadow"></i></span> -->
+                    </div>
                     <h6 class="text-main mt-2">{{product.category.name}}</h6>
                     <h6 class="fw-bold">{{product.title.split(" ").slice(0, 2).join(" ")}}</h6>
                     <div class="d-flex justify-content-between mb-4">
@@ -17,12 +29,12 @@
                         <span>
                             <!-- Display number of stars based on the rating -->
                             @for (num of [1,2,3,4,5].slice(0, product.ratingsAverage); track $index) {
-                                <i class="fa-solid fa-star rating-color"></i>
+                                <i class="star fa-solid fa-star rating-color"></i>
                             }
 
                             <!-- Display half a star if the rating has a fraction -->
                             @if (product.ratingsAverage % 1 != 0) {
-                                <i class="fa-solid fa-star-half-stroke rating-color"></i>
+                                <i class="star fa-solid fa-star-half-stroke rating-color"></i>
                             }
 
                              {{product.ratingsAverage}}

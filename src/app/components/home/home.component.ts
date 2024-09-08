@@ -7,6 +7,8 @@ import { MainSliderComponent } from "../main-slider/main-slider.component";
 import { RouterLink } from '@angular/router';
 import { CartService } from '../../core/services/cart.service';
 import { ToastrService } from 'ngx-toastr';
+import { WishlistService } from '../../core/services/wishlist.service';
+
 
 @Component({
   selector: 'app-home',
@@ -17,13 +19,14 @@ import { ToastrService } from 'ngx-toastr';
 })
 export class HomeComponent implements OnInit, OnDestroy{
 
+  private readonly _ProductsService = inject(ProductsService)
+  private readonly _CartService = inject(CartService)
   private readonly _ToastrService = inject(ToastrService)
+  private readonly _WishlistService = inject(WishlistService)
 
   allProducts:Product[] = [];
 
   getProductsSub!: Subscription;
-
-  constructor(private _ProductsService:ProductsService, private _CartService:CartService) {}
 
   getProducts = () => {
     this.getProductsSub = this._ProductsService.getProducts().subscribe({
@@ -47,8 +50,31 @@ export class HomeComponent implements OnInit, OnDestroy{
   addToCart = (id:string):void => {
     this._CartService.addProductToCart(id).subscribe({
       next: (res) => {
-        this._ToastrService.success(res.message)
+        this._ToastrService.success(res.message, '', {
+          progressBar: true,
+          timeOut: 3000
+        })
+        this._CartService.cartNumber.next(res.numOfCartItems);
+        console.log( this._CartService.cartNumber)
         console.log(res)
+      },
+      error: (err) => {
+        console.log(err)
+      }
+    })
+  }
+
+  added:boolean = false
+
+  addToWishlist = (id:string):void => {
+    this._WishlistService.addProductToWishlist(id).subscribe({
+      next: (res) => {
+        this._ToastrService.success(res.message, '', {
+          progressBar: true,
+          timeOut: 3000
+        })
+        console.log(res)
+        this.added = true
       },
       error: (err) => {
         console.log(err)

@@ -14,6 +14,7 @@ import { Router } from '@angular/router';
 export class ForgotPasswordComponent {
 
   step:number = 1;
+  isBtnSubmit: boolean = false;
 
   private readonly _FormBuilder = inject(FormBuilder);
   private readonly _AuthService = inject(AuthService);
@@ -36,9 +37,11 @@ export class ForgotPasswordComponent {
   })
 
   verifyEmailSubmit():void {
+    this.isBtnSubmit = true;
     this._AuthService.setEmailVerify(this.verifyEmail.value).subscribe({
       next: (res) => {
         console.log(res)
+        this.isBtnSubmit = false;
         if(res.statusMsg === 'success') {
           this.step = 2;
         }
@@ -50,8 +53,10 @@ export class ForgotPasswordComponent {
   }
 
   verifyCodeSubmit():void {
+    this.isBtnSubmit = true;
     this._AuthService.verifyResetCode(this.verifyCode.value).subscribe({
       next: (res) => {
+        this.isBtnSubmit = false;
         console.log(res)
         if(res.status === 'Success') {
           this.step = 3;
@@ -64,8 +69,10 @@ export class ForgotPasswordComponent {
   }
 
   resetPasswordSubmit():void {
+    this.isBtnSubmit = true;
     this._AuthService.resetPassword(this.resetPassword.value).subscribe({
       next: (res) => {
+        this.isBtnSubmit = false;
         console.log(res)
         localStorage.setItem('userToken', res.token)
         this._Router.navigate(['/home'])

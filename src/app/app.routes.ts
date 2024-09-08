@@ -14,6 +14,10 @@ import { authGuard } from './core/guards/auth.guard';
 import { isLoggedInGuard } from './core/guards/is-logged-in.guard';
 import { ProductDetailsComponent } from './components/product-details/product-details.component';
 import { ForgotPasswordComponent } from './components/forgot-password/forgot-password.component';
+import { WishlistComponent } from './components/wishlist/wishlist.component';
+import { ProductsByCatComponent } from './components/products-by-cat/products-by-cat.component';
+import { ProductsByBrandComponent } from './components/products-by-brand/products-by-brand.component';
+
 
 export const routes: Routes = [
     {path: "", component: AuthLayoutComponent, canActivate:[isLoggedInGuard],children: [
@@ -30,8 +34,11 @@ export const routes: Routes = [
         {path: "brands", component: BrandsComponent, title: "Brands"},
         {path: "products", component: ProductsComponent, title: "Products"},
         {path: "cart", component: CartComponent, title: "Cart"},
-        {path: "orders", component: OrdersComponent, title: "Orders"},
+        {path: "orders/:id", component: OrdersComponent, title: "Orders"},
         {path: "details/:id", component: ProductDetailsComponent, title: "Product Details"},
+        {path: "wishlist", component: WishlistComponent, title: "Wishlist"},
+        {path: "products-by-cat/:id", component: ProductsByCatComponent, title: "Products"},
+        {path: "products-by-brand/:id", component: ProductsByBrandComponent, title: "Products"},
     ]},
 
     {path: "**", component: NotFoundComponent, title: "Not Found"}

@@ -1,3 +1,20 @@
-i {
+.wishlist {
+    top: 6px;
+    right: 6px
+}
+.wishlist i {
+    background-color: rgb(209, 250, 229);
+    color: rgb(6, 95, 70);
+    font-size: 20px;
+    padding: 5px;
+    border-radius: 50%;
+    -webkit-border-radius: 50%;
+    -moz-border-radius: 50%;
+    -ms-border-radius: 50%;
+    -o-border-radius: 50%;
+}
+
+i.star {
     font-size: 13px;
 }
+

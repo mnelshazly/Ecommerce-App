@@ -3,8 +3,10 @@
 
     @for (cat of categoriesList; track cat._id) {
         <ng-template carouselSlide>
-            <img [src]="cat.image" height="250px" [alt]="cat.name">
-            <h3 class="text-main h6 text-center mt-3">{{cat.name}}</h3>
+            <div [routerLink]="['/products-by-cat', cat._id]" class="cursor-pointer">
+                <img [src]="cat.image" height="250px" [alt]="cat.name">
+                <h3 class="text-main h6 text-center mt-3">{{cat.name}}</h3>
+            </div>
         </ng-template>
     }
 

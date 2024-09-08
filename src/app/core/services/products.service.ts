@@ -17,4 +17,12 @@ export class ProductsService {
   getSpecificProduct = (id:string | null):Observable<any> => {
     return this._HttpClient.get(baseURL + 'api/v1/products/' + id)
   }
+
+  getProductsByCat = (catId:string | null):Observable<any> => {
+    return this._HttpClient.get(baseURL + 'api/v1/products?category[in]=' + catId)
+  }
+
+  getProductsByBrand = (brandId:string | null):Observable<any> => {
+    return this._HttpClient.get(baseURL + 'api/v1/products?brand=' + brandId)
+  }
 }

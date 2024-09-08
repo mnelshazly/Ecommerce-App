@@ -22,16 +22,16 @@
                 </li>
             </ul>
             <ul class="navbar-nav ms-auto mb-2 mb-lg-0">
-                <li class="nav-item">
-                    <a class="nav-link position-relative" href="#">
-                        Wishlist <i class="fa-regular fa-heart"></i>
-                        <span class="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-main">5</span>
+                <li class="nav-item me-3">
+                    <a class="wishlist nav-link position-relative" routerLink="wishlist">
+                        <i class="fa-regular fa-heart fs-5"></i>
+                        <span class="position-absolute translate-middle badge rounded-pill bg-main">5</span>
                     </a>
                 </li>
-                <li class="nav-item">
-                    <a class="nav-link position-relative" routerLink="cart">
-                        Cart <i class="fa-solid fa-cart-shopping"></i>
-                        <span class="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-main">5</span>
+                <li class="nav-item me-3">
+                    <a class="cart nav-link position-relative" routerLink="cart">
+                        <i class="fa-solid fa-cart-shopping fs-5"></i>
+                        <span class="position-absolute translate-middle badge rounded-pill bg-main">{{countNumber}}</span>
                     </a>
                 </li>
                 <li class="nav-item">
