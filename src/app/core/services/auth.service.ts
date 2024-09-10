@@ -10,6 +10,8 @@ import { Router } from '@angular/router';
 })
 export class AuthService {
 
+  userData:any = null;
+
   private readonly _HttpClient = inject (HttpClient);
   private readonly _Router = inject (Router);
 
@@ -26,7 +28,7 @@ export class AuthService {
 
     if (userToken) {
       try {
-        let decodedToken = jwtDecode(userToken);
+        this.userData = jwtDecode(userToken);
       } catch (error) {
         localStorage.clear();
       }
