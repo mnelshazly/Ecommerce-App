@@ -17,6 +17,7 @@ import { ForgotPasswordComponent } from './components/forgot-password/forgot-pas
 import { WishlistComponent } from './components/wishlist/wishlist.component';
 import { ProductsByCatComponent } from './components/products-by-cat/products-by-cat.component';
 import { ProductsByBrandComponent } from './components/products-by-brand/products-by-brand.component';
+import { AllordersComponent } from './allorders/allorders.component';
 
 
 export const routes: Routes = [
@@ -39,6 +40,7 @@ export const routes: Routes = [
         {path: "wishlist", component: WishlistComponent, title: "Wishlist"},
         {path: "products-by-cat/:id", component: ProductsByCatComponent, title: "Products"},
         {path: "products-by-brand/:id", component: ProductsByBrandComponent, title: "Products"},
+        {path: "allorders", component: AllordersComponent, title: "My Orders"},
     ]},
 
     {path: "**", component: NotFoundComponent, title: "Not Found"}

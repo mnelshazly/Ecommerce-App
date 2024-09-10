@@ -1,4 +1,7 @@
 <div class="container py-5">
+
+  @if (!isLoading) {
+
     <h1 class="mb-5 h3">All Categories</h1>
     <div class="row g-3">
 
@@ -12,4 +15,9 @@
         }
 
     </div>
+
+  }  @else {
+    <p class="text-center">Loading...</p>
+  }
+
 </div>

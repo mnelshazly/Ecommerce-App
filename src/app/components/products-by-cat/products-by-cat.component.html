@@ -1,9 +1,10 @@
-@if (productsList.length !== 0) {
+@if (!isLoading) {
+  @if (productsList.length !== 0) {
     <h3 class="my-3">Products:</h3>
     <div class="row mt-3 gy-3">
 
     @for (product of productsList; track product.id) {
-        <div class="col-md-2">
+        <div class="col-sm-6 col-md-3 col-lg-2">
             <div class="product cursor-pointer text-center p-2 position-relative">
                 <div class="position-absolute wishlist">
 
@@ -17,7 +18,6 @@
                 <div [routerLink]="['/details', product._id]">
                     <div>
                         <img [src]="product.imageCover" [alt]="product.slug" class="w-100">
-                        <!-- <span class="position-absolute wishlist"><i class="fa-regular fa-heart shadow"></i></span> -->
                     </div>
                     <h6 class="text-main mt-2">{{product.category.name}}</h6>
                     <h6 class="fw-bold">{{product.title.split(" ").slice(0, 2).join(" ")}}</h6>
@@ -43,8 +43,11 @@
         </div>
     }
 
-</div>
-} @else {
-    <span class="h1 text-main fw-bolder">Oops...!</span>
-    <h3>No products for this category now, check this category later</h3>
+    </div>
+  } @else {
+      <span class="h1 text-main fw-bolder">Oops...!</span>
+      <h3>No products for this category now, check this category later</h3>
+  }
+}  @else {
+  <p class="text-center">Loading...</p>
 }

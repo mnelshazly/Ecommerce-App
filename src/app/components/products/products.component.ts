@@ -6,11 +6,13 @@ import { Subscription } from 'rxjs';
 import { CartService } from '../../core/services/cart.service';
 import { RouterLink } from '@angular/router';
 import { WishlistService } from '../../core/services/wishlist.service';
+import { SearchPipe } from '../../core/pipes/search.pipe';
+import { FormsModule } from '@angular/forms';
 
 @Component({
   selector: 'app-products',
   standalone: true,
-  imports: [RouterLink],
+  imports: [RouterLink, SearchPipe, FormsModule],
   templateUrl: './products.component.html',
   styleUrl: './products.component.scss'
 })
@@ -26,11 +28,14 @@ export class ProductsComponent implements OnInit{
   allProducts:Product[] = [];
   wishlistData:any[] = []
   getProductsSub!: Subscription;
+  searchText:string = "";
+  isLoading:boolean = true;
 
   getProducts = () => {
     this.getProductsSub = this._ProductsService.getProducts().subscribe({
       next:(res) => {
         this.allProducts = res.data;
+        this.isLoading = false;
       },
       error:(error) => {
         console.log(error)

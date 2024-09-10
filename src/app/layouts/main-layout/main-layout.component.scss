@@ -4,3 +4,17 @@
     justify-content: space-between;
     min-height: 100vh;
 }
+
+.upBtn
+ {
+  position: fixed;
+  bottom: 20px;
+  right: 20px;
+  background-color: #0aad0a;
+  color: #fff;
+  z-index: 999;
+ }
+
+ .upBtn:hover {
+  background-color: #045f04;
+ }

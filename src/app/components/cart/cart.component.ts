@@ -19,6 +19,7 @@ export class CartComponent implements OnInit{
 
   cartData:Cart = {} as Cart;
   numberOfCartItems:number = 0;
+  isLoading:boolean = true;
 
   ngOnInit(): void {
     this._CartService.getCartDetails().subscribe({
@@ -26,9 +27,8 @@ export class CartComponent implements OnInit{
         console.log(res)
         // this.numberOfCartItems = res.numOfCartItems;
         this.numberOfCartItems = this._CartService.cartNumber.getValue()
-        console.log(this.numberOfCartItems)
         this.cartData = res.data;
-        console.log(this.cartData)
+        this.isLoading = false;
       },
 
       error: (err) => {
@@ -47,6 +47,7 @@ export class CartComponent implements OnInit{
           progressBar: true,
           timeOut: 3000
         })
+        this.numberOfCartItems = this._CartService.cartNumber.getValue()
       },
       error: (err) => {
         console.log(err)

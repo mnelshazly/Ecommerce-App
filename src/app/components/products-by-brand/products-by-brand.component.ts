@@ -23,18 +23,19 @@ export class ProductsByBrandComponent implements OnInit{
   private readonly _CartService = inject(CartService);
   private readonly _ToastrService = inject(ToastrService);
 
-  productsList:Product[] = []
-  wishlistData:any[] = []
+  productsList:Product[] = [];
+  wishlistData:any[] = [];
+  isLoading:boolean = true
 
   ngOnInit(): void {
     this._ActivatedRoute.paramMap.subscribe({
       next: (p) => {
         let brandId = p.get('id');
-    
+
         this._ProductsService.getProductsByBrand(brandId).subscribe({
           next: (res) => {
             this.productsList = res.data
-            console.log(this.productsList);
+            this.isLoading = false;
           },
           error: (err) => {
             console.log(err)
@@ -43,7 +44,7 @@ export class ProductsByBrandComponent implements OnInit{
 
       }
     })
-    
+
     this._WishlistService.getWishlistData().subscribe({
       next: (res) => {
         this.wishlistData = res.data.map((item: any) => item._id);

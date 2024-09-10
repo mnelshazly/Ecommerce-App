@@ -13,6 +13,7 @@ import { RouterLink } from '@angular/router';
 export class BrandsComponent implements OnInit{
 
   allBrands:Brand[] = [];
+  isLoading:boolean = true
 
   constructor(private _BrandsService:BrandsService) {}
 
@@ -20,11 +21,11 @@ export class BrandsComponent implements OnInit{
     this._BrandsService.getBrands().subscribe({
       next: (res) => {
         this.allBrands = res.data;
-        console.log(res)
+        this.isLoading = false;
       },
       error: (error) => {
         console.log(error)
-      } 
+      }
     });
   }
 

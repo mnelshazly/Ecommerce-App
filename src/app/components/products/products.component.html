@@ -1,65 +1,53 @@
-<h1 class="mb-5 h3">{{pageTitle}}</h1>
-<!-- <div class="row gy-3">
-    
-    @for (product of allProducts; track $index) {
+@if (!isLoading) {
 
-        <div class="col-md-2">
-            <div class="product p-2 text-center cursor-pointer">
-                <img [src]="product.imageCover" [alt]="product.slug" class="w-100">
-                <h6 class="text-main">{{product.category.name}}</h6>
-                <h5 class="fw-bold">{{product.title.split(" ").slice(0, 2).join(" ")}}</h5>
-                <div class="d-flex justify-content-between  mb-4">
-                    <span>{{product.price}} EGP</span>
-                    <span><i class="fa-solid fa-star rating-color"></i> {{product.price}}</span>
-                </div>
-                <button class="btn bg-main text-white w-100">Add To Cart</button>
-            </div>
-        </div>
-    }
+  <h1 class="mb-5 h3">{{pageTitle}}</h1>
 
-</div> -->
+  <input [(ngModel)]="searchText" type="search" placeholder="Search for products by name..." class="form-control w-75 mx-auto my-2">
 
-<div class="row mt-3 gy-3">
+  <div class="row mt-3 gy-3">
 
-    @for (product of allProducts; track $index) {
-        <div class="col-md-2">
-            <div class="product cursor-pointer text-center p-2 position-relative">
-                <div class="position-absolute wishlist">
+      @for (product of allProducts | search : searchText ; track $index) {
+          <div class="col-sm-6 col-md-3 col-lg-2">
+              <div class="product cursor-pointer text-center p-2 position-relative">
+                  <div class="position-absolute wishlist">
 
-                    @if(wishlistData.includes(product.id)) {
-                        <i (click)="removeProductFromWishlist(product.id)" class="fa-solid fa-heart shadow"></i>
-                    } @else {
-                        <i (click)="addToWishlist(product.id)" class="fa-regular fa-heart shadow"></i>
-                    }
+                      @if(wishlistData.includes(product.id)) {
+                          <i (click)="removeProductFromWishlist(product.id)" class="fa-solid fa-heart shadow"></i>
+                      } @else {
+                          <i (click)="addToWishlist(product.id)" class="fa-regular fa-heart shadow"></i>
+                      }
 
-                </div>
-                <div [routerLink]="['/details', product._id]">
-                    <div>
-                        <img [src]="product.imageCover" [alt]="product.slug" class="w-100">
-                        <!-- <span class="position-absolute wishlist"><i class="fa-regular fa-heart shadow"></i></span> -->
-                    </div>
-                    <h6 class="text-main mt-2">{{product.category.name}}</h6>
-                    <h6 class="fw-bold">{{product.title.split(" ").slice(0, 2).join(" ")}}</h6>
-                    <div class="d-flex justify-content-between mb-4">
-                        <span>{{product.price}} EGP</span>
-                        <span>
-                            <!-- Display number of stars based on the rating -->
-                            @for (num of [1,2,3,4,5].slice(0, product.ratingsAverage); track $index) {
-                                <i class="star fa-solid fa-star rating-color"></i>
-                            }
+                  </div>
+                  <div [routerLink]="['/details', product._id]">
+                      <div>
+                          <img [src]="product.imageCover" [alt]="product.slug" class="w-100">
+                      </div>
+                      <h6 class="text-main mt-2">{{product.category.name}}</h6>
+                      <h6 class="fw-bold">{{product.title.split(" ").slice(0, 2).join(" ")}}</h6>
+                      <div class="d-flex justify-content-between mb-4">
+                          <span>{{product.price}} EGP</span>
+                          <span>
+                              <!-- Display number of stars based on the rating -->
+                              @for (num of [1,2,3,4,5].slice(0, product.ratingsAverage); track $index) {
+                                  <i class="star fa-solid fa-star rating-color"></i>
+                              }
 
-                            <!-- Display half a star if the rating has a fraction -->
-                            @if (product.ratingsAverage % 1 != 0) {
-                                <i class="star fa-solid fa-star-half-stroke rating-color"></i>
-                            }
+                              <!-- Display half a star if the rating has a fraction -->
+                              @if (product.ratingsAverage % 1 != 0) {
+                                  <i class="star fa-solid fa-star-half-stroke rating-color"></i>
+                              }
 
-                             {{product.ratingsAverage}}
-                        </span>
-                    </div>
-                </div>
-                <button class="btn bg-main text-white w-100" (click)="addToCart(product.id)">Add To Cart</button>
-            </div>
-        </div>
-    }
+                               {{product.ratingsAverage}}
+                          </span>
+                      </div>
+                  </div>
+                  <button class="btn bg-main text-white w-100" (click)="addToCart(product.id)">Add To Cart</button>
+              </div>
+          </div>
+      }
 
-</div>
+  </div>
+
+} @else {
+  <p class="text-center">Loading...</p>
+}

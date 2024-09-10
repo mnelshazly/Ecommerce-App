@@ -13,14 +13,16 @@ import { RouterLink } from '@angular/router';
 export class CategoriesComponent implements OnInit{
 
   allCategories:Category[] = [];
+  isLoading:boolean = true;
 
   constructor(private _CategoriesService:CategoriesService) {}
 
   getCategories = () => {
     this._CategoriesService.getCategories().subscribe({
-      
+
       next: (res) => {
         this.allCategories = res.data
+        this.isLoading = false;
       },
 
       error: (error) => {

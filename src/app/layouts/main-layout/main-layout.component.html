@@ -4,4 +4,10 @@
     <router-outlet></router-outlet>
 </div>
 
+@if (showBtn) {
+
+  <button (click)="scrollToTop()" class="btn upBtn"><i class="fa-solid fa-angle-up"></i></button>
+}
+
+
 <app-footer></app-footer>

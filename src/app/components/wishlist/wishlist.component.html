@@ -3,9 +3,9 @@
     @if(wishlistData.length !== 0) {
       <h3 class="my-3">My Wishlist:</h3>
       <div class="row mt-3 gy-3">
-    
+
         @for (product of wishlistData; track product._id) {
-            <div class="col-md-3">
+            <div class="col-sm-6 col-md-3">
                 <div class="product cursor-pointer text-center p-2 position-relative">
                     <div [routerLink]="['/details', product._id]">
                         <div>
@@ -20,12 +20,12 @@
                                 @for (num of [1,2,3,4,5].slice(0, product.ratingsAverage); track $index) {
                                     <i class="star fa-solid fa-star rating-color"></i>
                                 }
-    
+
                                 <!-- Display half a star if the rating has a fraction -->
                                 @if (product.ratingsAverage % 1 != 0) {
                                     <i class="star fa-solid fa-star-half-stroke rating-color"></i>
                                 }
-    
+
                                   {{product.ratingsAverage}}
                             </span>
                         </div>
@@ -47,16 +47,16 @@
                 </div>
             </div>
         }
-    
+
       </div>
     } @else {
-  
+
         <span class="h1 text-main fw-bolder">Oops...!</span>
         <h3>Your wishlist is currently empty</h3>
-  
+
     }
   </section>
 } @else {
-  <h3>Loading ...</h3>
+  <p class="text-center">Loading...</p>
 }
 

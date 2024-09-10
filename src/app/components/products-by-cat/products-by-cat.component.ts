@@ -23,18 +23,19 @@ export class ProductsByCatComponent implements OnInit{
   private readonly _CartService = inject(CartService);
   private readonly _ToastrService = inject(ToastrService);
 
-  productsList:Product[] = []
-  wishlistData:any[] = []
+  productsList:Product[] = [];
+  wishlistData:any[] = [];
+  isLoading:boolean = true;
 
   ngOnInit(): void {
     this._ActivatedRoute.paramMap.subscribe({
       next: (p) => {
         let catId = p.get('id');
-    
+
         this._ProductsService.getProductsByCat(catId).subscribe({
           next: (res) => {
             this.productsList = res.data
-            console.log(this.productsList);
+            this.isLoading = false;
           },
           error: (err) => {
             console.log(err)
