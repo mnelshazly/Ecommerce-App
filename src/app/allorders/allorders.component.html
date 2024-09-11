@@ -1,7 +1,7 @@
-<section>
-
+<section >
+    <h2 class="h3 text-center">All Orders</h2>
       @for (order of userOrders; track order._id) {
-        <div class="order ">
+        <div class="order mt-4 p-4 bg-main-light rounded-4">
 
           <h3 class="h6 fw-bolder">Order Number <span class="text-main">#{{order.id}}</span></h3>
           <div class="order-items border rounded mb-4 p-3">
