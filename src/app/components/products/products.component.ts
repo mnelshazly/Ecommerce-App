@@ -8,11 +8,12 @@ import { RouterLink } from '@angular/router';
 import { WishlistService } from '../../core/services/wishlist.service';
 import { SearchPipe } from '../../core/pipes/search.pipe';
 import { FormsModule } from '@angular/forms';
+import { CurrencyPipe } from '@angular/common';
 
 @Component({
   selector: 'app-products',
   standalone: true,
-  imports: [RouterLink, SearchPipe, FormsModule],
+  imports: [RouterLink, SearchPipe, FormsModule, CurrencyPipe],
   templateUrl: './products.component.html',
   styleUrl: './products.component.scss'
 })

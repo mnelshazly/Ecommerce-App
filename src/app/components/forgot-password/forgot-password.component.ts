@@ -37,6 +37,8 @@ export class ForgotPasswordComponent {
   })
 
   verifyEmailSubmit():void {
+    let emailValue = this.verifyEmail.get('email')?.value
+    this.resetPassword.get('email')?.patchValue(emailValue)
     this.isBtnSubmit = true;
     this._AuthService.setEmailVerify(this.verifyEmail.value).subscribe({
       next: (res) => {
