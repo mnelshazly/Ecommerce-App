@@ -1,1 +1,31 @@
-<p>allorders works!</p>
+<section>
+
+      @for (order of userOrders; track order._id) {
+        <div class="order">
+
+          <h3 class="h4">Order Number #{{order.id}}</h3>
+          <div class="order-items border-bottom my-2">
+          @for (item of order.cartItems; track $index) {
+            <div class="row my-2 py-2">
+              <div class="col-md-1">
+                <img [src]="item.product.imageCover"  class="w-100">
+              </div>
+              <div class="col-md-11 d-flex align-items-center justify-content-between">
+                <div>
+                  <h3 class="h5">{{item.product.title}}</h3>
+                  <p class="text-main mb-2">{{item.product.category.name}}</p>
+
+                </div>
+                <div class="d-flex align-items-center gap-2 flex-column">
+                  <span class="text-main cursor-pointer">Price: {{item.price}}</span>
+                  <span class="fs-6">QTY: {{item.count}}</span>
+
+                </div>
+              </div>
+            </div>
+          }
+          </div>
+        </div>
+      }
+
+</section>
